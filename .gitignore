@@ -23,3 +23,6 @@
 hs_err_pid*
 
 .idea
+Notification-Service/.mvn
+Notification-Service/mvnw
+Notification-Service/mvnw.cmd
