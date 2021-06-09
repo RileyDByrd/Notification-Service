@@ -2,13 +2,14 @@ package byrd.riley.notificationservice.app;
 
 import byrd.riley.notificationservice.model.Emailer;
 import byrd.riley.notificationservice.model.QueueReceiver;
+import byrd.riley.notificationservice.model.Texter;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import byrd.riley.notificationservice.model.Notifier;
+import byrd.riley.notificationservice.model.TwilioTexter;
 
 @Configuration
 public class MQConfiguration {
@@ -19,8 +20,8 @@ public class MQConfiguration {
 	}
 	
 	@Bean
-	public Notifier notifier() {
-		return new Notifier();
+	public Texter texter() {
+		return new TwilioTexter();
 	}
 	
 	@Bean
@@ -35,6 +36,6 @@ public class MQConfiguration {
 	
 	@Bean
 	public QueueReceiver queueReceiver() {
-		return new QueueReceiver(notifier(), emailer());
+		return new QueueReceiver(texter(), emailer());
 	}
 }

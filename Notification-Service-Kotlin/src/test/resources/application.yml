@@ -1,0 +1,16 @@
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+  mail:
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          port: 25
+          starttls:
+            enable: true

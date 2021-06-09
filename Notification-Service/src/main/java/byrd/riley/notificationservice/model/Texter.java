@@ -1,6 +1,6 @@
 package byrd.riley.notificationservice.model;
 
-public interface Notifying {
+public interface Texter {
 
 	void sendText(String receiver, String messageBody);
 	

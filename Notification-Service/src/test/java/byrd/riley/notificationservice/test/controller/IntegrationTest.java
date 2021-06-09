@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import byrd.riley.notificationservice.test.model.EmbeddedAMQPBroker;
 import byrd.riley.notificationservice.test.model.QueueSender;
-import byrd.riley.notificationservice.test.model.TestNotificationConfiguration;
+import byrd.riley.notificationservice.test.model.TestSMSConfiguration;
 import byrd.riley.notificationservice.test.model.config.IntegrationTestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -27,13 +27,13 @@ public class IntegrationTest {
 	
 	
 	@Test
-	void validSendAndReceiveThenNotify() {
-		queueSender.send(TestNotificationConfiguration.VALID_RECEIVER_NUMBER, "This should be the passing integration test message body.");
+	void validSendAndReceiveThenText() {
+		queueSender.send(TestSMSConfiguration.VALID_RECEIVER_NUMBER, "This should be the passing integration test message body.");
 	}
 	
 	@Test
-	void invalidSendAndReceiveThenNotify() {
+	void invalidSendAndReceiveThenText() {
 		// Really, a com.twilio.exception.ApiException is being thrown, but our listener is encountering it and in turn throwing an exception of its own.
-		assertThrows(ListenerExecutionFailedException.class, () -> queueSender.send(TestNotificationConfiguration.INVALID_RECEIVER_NUMBER, "This should be the failing integration test message body."));
+		assertThrows(ListenerExecutionFailedException.class, () -> queueSender.send(TestSMSConfiguration.INVALID_RECEIVER_NUMBER, "This should be the failing integration test message body."));
 	}
 }

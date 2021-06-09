@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import byrd.riley.notificationservice.model.QueueReceiver;
+import byrd.riley.notificationservice.model.Texter;
 import byrd.riley.notificationservice.test.model.QueueSender;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,18 +20,25 @@ import org.springframework.context.annotation.Bean;
 
 import com.rabbitmq.client.Channel;
 
-import byrd.riley.notificationservice.model.Notifier;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @TestConfiguration
 @EnableRabbit
 public class SpringUnitTestConfiguration {
 
-	// We don't have to know
-	// what kind of constructor is being called.
-	{
-		MockitoAnnotations.initMocks(this);
-	}
-	
+    private AutoCloseable myMocks;
+
+    @PostConstruct
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @PreDestroy
+    public void tearDown() throws Exception {
+        myMocks.close();
+    }
+
 	// Mock a connection factory such that it tells callers that the channel is always open.
 	// We're mocking the connection factory so that the Rabbit Listeners and TestRabbitTemplate
 	// don't throw exceptions when they can't connect to a nonexistent broker.
@@ -38,6 +46,7 @@ public class SpringUnitTestConfiguration {
 	@Mock private ConnectionFactory factory;
 	@Mock private Connection connection;
 	@Mock private Channel channel;
+
     @Bean
     public ConnectionFactory connectionFactory() {
         doReturn(connection).when(factory).createConnection();
@@ -56,14 +65,14 @@ public class SpringUnitTestConfiguration {
     }
     
     // Supply a mocked bean in the config class rather than a mock in the main test class of
-    // Notifier because QueueReceiver needs an instance of Notifier.
+    // Texter because QueueReceiver needs an instance of Texter.
     @MockBean
-    public Notifier notifier;
+    public Texter texter;
 	
     // Make a bean of QueueReceiver so that we may test its call of sendText (i.e. our actual code).
 	@Bean
 	public QueueReceiver queueReceiver() {
-		return new QueueReceiver(notifier);
+		return new QueueReceiver(texter);
 	}
 	
 	// Make a bean of TestRabbitTemplate so that we may call our QueueReceiver but pretend

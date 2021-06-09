@@ -14,27 +14,23 @@ public class EmbeddedAMQPBroker implements BeforeAllCallback, AfterAllCallback {
 	public static final int BROKER_PORT = 5672;
 	
 	private final SystemLauncher broker = new SystemLauncher();
-	
-	
-	private void startQpidBroker() throws Exception {
-		 Map<String, Object> attributes = new HashMap<>();
-	        attributes.put("type", "Memory");
-	        attributes.put(
-	        	"initialConfigurationLocation",
-	        	this.getClass().getClassLoader().getResource(CONFIG_FILE_NAME).toExternalForm()
-	        );
-	        attributes.put("qpid.amqp_port", String.valueOf(BROKER_PORT));
-	        broker.startup(attributes);
+
+
+	@Override
+	public void beforeAll(ExtensionContext context) throws Exception {
+		Map<String, Object> attributes = new HashMap<>();
+		attributes.put("type", "Memory");
+		attributes.put(
+			"initialConfigurationLocation",
+			this.getClass().getClassLoader().getResource(CONFIG_FILE_NAME).toExternalForm()
+		);
+		attributes.put("qpid.amqp_port", String.valueOf(BROKER_PORT));
+
+		broker.startup(attributes);
 	}
-	
 
 	@Override
 	public void afterAll(ExtensionContext context) throws Exception {
 		broker.shutdown();
-	}
-
-	@Override
-	public void beforeAll(ExtensionContext context) throws Exception {
-		startQpidBroker();
 	}
 }

@@ -15,7 +15,8 @@ public class QueueSender {
     		"text\r\n" +
     		receiverPhone + "\r\n" +
     		messageBody;
-        testRabbitTemplate.convertAndSend(TestNotificationConfiguration.QUEUE_NAME, message);
+
+        testRabbitTemplate.convertAndSend(TestSMSConfiguration.QUEUE_NAME, message);
         System.out.println(" [x] Sent '" + message + "'");
     }
 }

@@ -6,20 +6,20 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 @RabbitListener(queues = {"task_queue"}, id = "mainListener")
 public class QueueReceiver {
 
-	private Notifier notifier;
+	private Texter texter;
 
 	private Emailer emailer;
 	
-	public QueueReceiver(Notifier notifier) {
-		this.notifier = notifier;
+	public QueueReceiver(Texter texter) {
+		this.texter = texter;
 	}
 	
 	public QueueReceiver(Emailer emailer) {
 		this.emailer = emailer;
 	}
 	
-	public QueueReceiver(Notifier notifier, Emailer emailer) {
-		this.notifier = notifier;
+	public QueueReceiver(Texter texter, Emailer emailer) {
+		this.texter = texter;
 		this.emailer = emailer;
 	}
 	
@@ -33,12 +33,11 @@ public class QueueReceiver {
     	if(messageContents[0].equalsIgnoreCase("email")) {
     		String email = messageContents[1];
     		String messageBody = messageContents[2];
-    		emailer.sendEmail(email, "TechBill Email", messageBody);
-    	}
-    	else if(messageContents[0].equalsIgnoreCase("text")) {
+    		emailer.sendEmail(email, "My Email", messageBody);
+    	} else if(messageContents[0].equalsIgnoreCase("text")) {
     		String number = messageContents[1];
     		String messageBody = messageContents[2];
-    		notifier.sendText(number, messageBody);
+    		texter.sendText(number, messageBody);
     	}
         System.out.println(" [x] Done");
 	}

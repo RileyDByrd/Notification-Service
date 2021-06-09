@@ -4,14 +4,14 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
-public class Notifier implements Notifying {
+public class TwilioTexter implements Texter {
 
 	private final TwilioRestClient CLIENT;
-	private final NotificationConfigurable CONFIG;
+	private final SMSConfigurable CONFIG;
 	
-	public Notifier() { this(new NotificationConfiguration()); }
+	public TwilioTexter() { this(new SMSConfiguration()); }
 
-	public Notifier(NotificationConfigurable config) {
+	public TwilioTexter(SMSConfigurable config) {
 		CONFIG = config;
 		CLIENT = (new TwilioRestClient.Builder(
 			CONFIG.getAccountSID(),
