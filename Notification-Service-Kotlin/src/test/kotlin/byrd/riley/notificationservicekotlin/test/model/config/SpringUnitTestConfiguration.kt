@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean
 import javax.annotation.PostConstruct
 
 @TestConfiguration
+// The @EnableRabbit annotation is needed because we're providing a rabbitListenerContainerFactory bean.
 @EnableRabbit
 class SpringUnitTestConfiguration {
 

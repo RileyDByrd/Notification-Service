@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @TestConfiguration
+// The @EnableRabbit annotation is needed because we're providing a rabbitListenerContainerFactory bean.
 @EnableRabbit
 public class SpringUnitTestConfiguration {
 
