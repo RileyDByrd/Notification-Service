@@ -7,6 +7,7 @@ import byrd.riley.notificationservice.test.model.QueueSender;
 import byrd.riley.notificationservice.test.model.TestSMSConfiguration;
 import byrd.riley.notificationservice.test.model.config.IntegrationTestConfiguration;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.amqp.rabbit.support.ListenerExecutionFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,9 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @SpringBootTest(classes = IntegrationTest.class)
 @Import(IntegrationTestConfiguration.class)
+@ExtendWith(EmbeddedAMQPBroker.class)
 public class IntegrationTest {
 
-	@RegisterExtension
-	static final EmbeddedAMQPBroker BROKER = new EmbeddedAMQPBroker();
-	
 	@Autowired
 	private QueueSender queueSender;
 	

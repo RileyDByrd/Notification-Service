@@ -6,7 +6,7 @@ import byrd.riley.notificationservicekotlin.test.model.TestSMSConfiguration
 import byrd.riley.notificationservicekotlin.test.model.config.IntegrationTestConfiguration
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.RegisterExtension
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.amqp.rabbit.support.ListenerExecutionFailedException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -16,13 +16,8 @@ import org.springframework.context.annotation.Import
 @SpringBootApplication
 @SpringBootTest(classes = [IntegrationTest::class])
 @Import(IntegrationTestConfiguration::class)
+@ExtendWith(EmbeddedAMQPBroker::class)
 class IntegrationTest(@Autowired private val queueSender: QueueSender) {
-
-    companion object {
-        @RegisterExtension
-        @JvmField
-        val BROKER = EmbeddedAMQPBroker()
-    }
 
     @Test
     fun validSendAndReceiveThenText() {
