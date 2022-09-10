@@ -16,23 +16,17 @@ import org.springframework.context.annotation.Import
 @SpringBootApplication
 @SpringBootTest(classes = [SpringUnitTest::class])
 @Import(SpringUnitTestConfiguration::class)
-class SpringUnitTest {
-
-    @Autowired
-    private lateinit var mockTexter: Texter
-
-    @Autowired
-    private lateinit var queueReceiver: QueueReceiver
-
-    @Autowired
-    private lateinit var queueSender: QueueSender
-
-    // Have our Strings outside our method so that they may be assigned from an anonymous inner-type.
-    var expectedMessage = "This message was passed as a parameter and sendText was successfully called once."
-    var actualMessage = ""
-
+class SpringUnitTest(
+    @Autowired private val mockTexter: Texter,
+    @Autowired private val queueReceiver: QueueReceiver,
+    @Autowired private val queueSender: QueueSender
+) {
     @Test
     fun rabbitMQCallsTexter() {
+        // Have our Strings outside our method so that they may be assigned from an anonymous inner-type.
+        val expectedMessage = "This message was passed as a parameter and sendText was successfully called once."
+        var actualMessage = ""
+
         // If the sendText method is called, set our actualMessage variable to the second parameter (i.e. argument 1).
         // expectedMessage should end up as the second parameter, so they should be equal.
         every { mockTexter.sendText(any(), any()) } answers {

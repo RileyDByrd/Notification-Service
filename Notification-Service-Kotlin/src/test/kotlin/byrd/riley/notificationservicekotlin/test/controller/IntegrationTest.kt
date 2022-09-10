@@ -16,17 +16,13 @@ import org.springframework.context.annotation.Import
 @SpringBootApplication
 @SpringBootTest(classes = [IntegrationTest::class])
 @Import(IntegrationTestConfiguration::class)
-class IntegrationTest {
+class IntegrationTest(@Autowired private val queueSender: QueueSender) {
 
     companion object {
         @RegisterExtension
         @JvmField
         val BROKER = EmbeddedAMQPBroker()
     }
-
-    @Autowired
-    private lateinit var queueSender: QueueSender
-
 
     @Test
     fun validSendAndReceiveThenText() {
