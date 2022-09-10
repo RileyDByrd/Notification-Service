@@ -2,36 +2,38 @@ package byrd.riley.notificationservice.model;
 
 public class SMSConfiguration implements SMSConfigurable {
 	
-	private final String ACCOUNT_SID;
-	private final String AUTH_TOKEN;
-	private final String DEFAULT_SENDER_PHONE;
+	private final String accountSid;
+	private final String authToken;
+	private final String defaultSenderPhone;
 	
 	public SMSConfiguration() {
-		ACCOUNT_SID = System.getenv("ACCOUNT_SID");
-		AUTH_TOKEN = System.getenv("AUTH_TOKEN");
-		DEFAULT_SENDER_PHONE = System.getenv("DEFAULT_SENDER_PHONE");
+		this(
+			System.getenv("ACCOUNT_SID"),
+			System.getenv("AUTH_TOKEN"),
+			System.getenv("DEFAULT_SENDER_PHONE")
+		);
 	}
 
 	public SMSConfiguration(String accountSID, String authToken, String defaultSenderPhone) {
-		this.ACCOUNT_SID = accountSID;
-		this.AUTH_TOKEN = authToken;
-		this.DEFAULT_SENDER_PHONE = defaultSenderPhone;
+		this.accountSid = accountSID;
+		this.authToken = authToken;
+		this.defaultSenderPhone = defaultSenderPhone;
 	}
 
 	
 	@Override
 	public String getAccountSID() {
-		return ACCOUNT_SID;
+		return accountSid;
 	}
 
 	@Override
 	public String getAuthToken() {
-		return AUTH_TOKEN;
+		return authToken;
 	}
 
 	@Override
 	public String getDefaultSenderPhone() {
-		return DEFAULT_SENDER_PHONE;
+		return defaultSenderPhone;
 	}
 
 }

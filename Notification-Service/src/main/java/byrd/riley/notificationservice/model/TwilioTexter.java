@@ -6,22 +6,22 @@ import com.twilio.type.PhoneNumber;
 
 public class TwilioTexter implements Texter {
 
-	private final TwilioRestClient CLIENT;
-	private final SMSConfigurable CONFIG;
+	private final TwilioRestClient client;
+	private final SMSConfigurable config;
 	
 	public TwilioTexter() { this(new SMSConfiguration()); }
 
 	public TwilioTexter(SMSConfigurable config) {
-		CONFIG = config;
-		CLIENT = (new TwilioRestClient.Builder(
-			CONFIG.getAccountSID(),
-			CONFIG.getAuthToken()
+		this.config = config;
+		client = (new TwilioRestClient.Builder(
+			this.config.getAccountSID(),
+			this.config.getAuthToken()
 		)).build();
 	}
 	
 	@Override
 	public void sendText(String receiver, String messageBody) {
-		sendText(receiver, CONFIG.getDefaultSenderPhone(), messageBody);
+		sendText(receiver, config.getDefaultSenderPhone(), messageBody);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class TwilioTexter implements Texter {
 			new PhoneNumber(receiver),
 			new PhoneNumber(sender),
 			messageBody
-		).create(CLIENT);
+		).create(client);
 		
 		System.out.println("Error " + message.getErrorCode() + ": " + message.getErrorMessage());
 	}

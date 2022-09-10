@@ -1,6 +1,5 @@
 package byrd.riley.notificationservice.test.model;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.qpid.server.SystemLauncher;
@@ -18,19 +17,17 @@ public class EmbeddedAMQPBroker implements BeforeAllCallback, AfterAllCallback {
 
 	@Override
 	public void beforeAll(ExtensionContext context) throws Exception {
-		Map<String, Object> attributes = new HashMap<>();
-		attributes.put("type", "Memory");
-		attributes.put(
-			"initialConfigurationLocation",
-			this.getClass().getClassLoader().getResource(CONFIG_FILE_NAME).toExternalForm()
+		Map<String, Object> attributes = Map.of(
+			"type", "Memory",
+			"initialConfigurationLocation", this.getClass().getClassLoader().getResource(CONFIG_FILE_NAME).toExternalForm(),
+			"qpid.amqp_port", String.valueOf(BROKER_PORT)
 		);
-		attributes.put("qpid.amqp_port", String.valueOf(BROKER_PORT));
 
 		broker.startup(attributes);
 	}
 
 	@Override
-	public void afterAll(ExtensionContext context) throws Exception {
+	public void afterAll(ExtensionContext context) {
 		broker.shutdown();
 	}
 }

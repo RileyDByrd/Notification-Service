@@ -11,11 +11,11 @@ public class QueueReceiver {
 	private Emailer emailer;
 	
 	public QueueReceiver(Texter texter) {
-		this.texter = texter;
+		this(texter, null);
 	}
 	
 	public QueueReceiver(Emailer emailer) {
-		this.emailer = emailer;
+		this(null, emailer);
 	}
 	
 	public QueueReceiver(Texter texter, Emailer emailer) {
@@ -29,16 +29,15 @@ public class QueueReceiver {
 		System.out.println(" [x] Received '" + in + "'");
 		
 		String[] messageContents = in.split("\r\n");
-    	
-    	if(messageContents[0].equalsIgnoreCase("email")) {
-    		String email = messageContents[1];
-    		String messageBody = messageContents[2];
-    		emailer.sendEmail(email, "My Email", messageBody);
-    	} else if(messageContents[0].equalsIgnoreCase("text")) {
-    		String number = messageContents[1];
-    		String messageBody = messageContents[2];
-    		texter.sendText(number, messageBody);
-    	}
+		String messageType = messageContents[0];
+		String receiver = messageContents[1];
+		String messageBody = messageContents[2];
+
+    	if(messageType.equalsIgnoreCase("email"))
+    		emailer.sendEmail(receiver, "My Email", messageBody);
+    	else if(messageType.equalsIgnoreCase("text"))
+    		texter.sendText(receiver, messageBody);
+
         System.out.println(" [x] Done");
 	}
 	

@@ -15,15 +15,14 @@ class QueueReceiver(private val texter: Texter?, private val emailer: Emailer?) 
 
         val messageContents: List<String> = `in`.split("\r\n")
 
-        if(messageContents[0].equals("email", true)) {
-            val email: String = messageContents[1]
-            val messageBody: String = messageContents[2]
-            emailer?.sendEmail(email, "My Email", messageBody)
-        } else if(messageContents[0].equals("text", true)) {
-            val number: String = messageContents[1]
-            val messageBody: String = messageContents[2]
-            texter?.sendText(number, messageBody)
-        }
+        val messageType: String = messageContents[0]
+        val receiver: String = messageContents[1]
+        val messageBody: String = messageContents[2]
+
+        if(messageType.equals("email", true))
+            emailer?.sendEmail(receiver, "My Email", messageBody)
+        else if(messageType.equals("text", true))
+            texter?.sendText(receiver, messageBody)
 
         print(" [x] Done")
     }
