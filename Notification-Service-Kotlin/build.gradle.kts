@@ -1,19 +1,19 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.5.0"
-	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	kotlin("jvm") version "1.5.10"
-	kotlin("plugin.spring") version "1.5.10"
+	id("org.springframework.boot") version "2.7.3"
+	id("io.spring.dependency-management") version "1.0.13.RELEASE"
+	kotlin("jvm") version "1.6.21"
+	kotlin("plugin.spring") version "1.6.21"
 }
 
 group = "byrd.riley"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-val twilioVersion = "8.14.0"
-val springMockKVersion = "3.0.1"
-val qpidBrokerVersion = "8.0.4"
+val twilioVersion = "8.36.0"
+val springMockKVersion = "3.1.1"
+val qpidBrokerVersion = "8.0.6"
 
 repositories {
 	mavenCentral()

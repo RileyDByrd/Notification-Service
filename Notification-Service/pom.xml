@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.0</version>
+		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>byrd.riley</groupId>
@@ -16,8 +16,8 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<twilio.version>8.14.0</twilio.version>
-		<qpid-broker.version>8.0.4</qpid-broker.version>
+		<twilio.version>8.36.0</twilio.version>
+		<qpid-broker.version>8.0.6</qpid-broker.version>
 	</properties>
 
 	<dependencies>
