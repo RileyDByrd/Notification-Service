@@ -16,12 +16,9 @@ class EmbeddedAMQPBroker: BeforeAllCallback, AfterAllCallback {
 
     override fun beforeAll(context: ExtensionContext?) {
         val attributes = mapOf<String, Any>(
-            Pair("type", "Memory"),
-            Pair(
-                "initialConfigurationLocation",
-                INITIAL_CONFIGURATION_LOCATION!!.toExternalForm()
-            ),
-            Pair("qpid.amqp_port", BROKER_PORT.toString())
+            "type" to "Memory",
+            "initialConfigurationLocation" to INITIAL_CONFIGURATION_LOCATION!!.toExternalForm(),
+            "qpid.amqp_port" to BROKER_PORT.toString()
         )
 
         broker.startup(attributes)
