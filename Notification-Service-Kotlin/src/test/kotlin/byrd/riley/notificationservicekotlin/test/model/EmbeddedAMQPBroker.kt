@@ -7,8 +7,9 @@ import org.junit.jupiter.api.extension.ExtensionContext
 
 class EmbeddedAMQPBroker: BeforeAllCallback, AfterAllCallback {
     companion object {
-        const val CONFIG_FILE_NAME = "qpid-config.json"
-        const val BROKER_PORT = 5672
+        private const val CONFIG_FILE_NAME = "qpid-config.json"
+        private const val BROKER_PORT = 5672
+        private val INITIAL_CONFIGURATION_LOCATION = Companion::class.java.classLoader.getResource(CONFIG_FILE_NAME)
     }
 
     private val broker = SystemLauncher()
@@ -18,7 +19,7 @@ class EmbeddedAMQPBroker: BeforeAllCallback, AfterAllCallback {
             Pair("type", "Memory"),
             Pair(
                 "initialConfigurationLocation",
-                this::class.java.classLoader.getResource(CONFIG_FILE_NAME).toExternalForm()
+                INITIAL_CONFIGURATION_LOCATION!!.toExternalForm()
             ),
             Pair("qpid.amqp_port", BROKER_PORT.toString())
         )
