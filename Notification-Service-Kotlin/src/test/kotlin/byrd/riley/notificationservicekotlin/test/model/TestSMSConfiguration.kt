@@ -1,6 +1,7 @@
 package byrd.riley.notificationservicekotlin.test.model
 
 import byrd.riley.notificationservicekotlin.model.SMSConfigurable
+import kotlin.RuntimeException
 
 class TestSMSConfiguration: SMSConfigurable {
 
@@ -11,6 +12,8 @@ class TestSMSConfiguration: SMSConfigurable {
     }
 
     override val accountSID: String = System.getenv("TEST_ACCOUNT_SID")
+        ?: throw RuntimeException("You forgot to set the TWILIO_TEST_ACCOUNT_SID environment variable.")
     override val authToken: String = System.getenv("TEST_AUTH_TOKEN")
+        ?: throw RuntimeException("You forgot to set the TWILIO_TEST_AUTH_TOKEN environment variable.")
     override val defaultSenderPhone: String = "+15005550006"
 }

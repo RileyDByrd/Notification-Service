@@ -13,12 +13,10 @@ public class TestSMSConfiguration implements SMSConfigurable {
 	private final static String DEFAULT_SENDER_PHONE = "+15005550006";
 
 	public TestSMSConfiguration() {
-		if(ACCOUNT_SID.isBlank())
+		if(ACCOUNT_SID == null)
 			throw new RuntimeException("You forgot to set the TWILIO_TEST_ACCOUNT_SID environment variable.");
-		if(AUTH_TOKEN.isBlank())
+		if(AUTH_TOKEN == null)
 			throw new RuntimeException("You forgot to set the TWILIO_TEST_AUTH_TOKEN environment variable.");
-		if(DEFAULT_SENDER_PHONE.isBlank())
-			throw new RuntimeException("You forgot to set the TWILIO_TEST_DEFAULT_SENDER_PHONE variable.");
 	}
 	
 	@Override
