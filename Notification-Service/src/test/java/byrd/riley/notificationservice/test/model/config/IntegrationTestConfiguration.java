@@ -21,12 +21,12 @@ public class IntegrationTestConfiguration {
 	}
 	
 	@Bean
-	public Texter texter() throws Exception {
+	public Texter texter() {
 		return new TwilioTexter(new TestSMSConfiguration());
 	}
 	
 	@Bean
-	public QueueReceiver queueReceiver() throws Exception {
+	public QueueReceiver queueReceiver() {
 		return new QueueReceiver(texter());
 	}
 	

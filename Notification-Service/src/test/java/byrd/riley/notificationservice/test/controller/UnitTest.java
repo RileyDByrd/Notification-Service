@@ -13,13 +13,8 @@ import byrd.riley.notificationservice.model.TwilioTexter;
 
 class UnitTest {
 
-	private SMSConfigurable config;
-	private Texter texter;
-
-	UnitTest() throws Exception {
-		config = new TestSMSConfiguration();
-		texter = new TwilioTexter(config);
-	}
+	private SMSConfigurable config = new TestSMSConfiguration();
+	private Texter texter = new TwilioTexter(config);
 
 	@Test
 	void passingSendText() {

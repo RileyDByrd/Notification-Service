@@ -30,7 +30,7 @@ public class SpringUnitTest {
 	private String actualMessage = "";
     
     @Test
-    void rabbitMQCallsTexter() throws Exception {
+    void rabbitMQCallsTexter() {
     	// If the sendText method is called, set our actualMessage variable to the second parameter (i.e. argument 1).
     	// expectedMessage should end up as the second parameter, so they should be equal.
     	doAnswer(invocation -> {
