@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
-import byrd.riley.notificationservice.model.QueueReceiver;
 import byrd.riley.notificationservice.model.Texter;
 import byrd.riley.notificationservice.test.model.QueueSender;
 import byrd.riley.notificationservice.test.model.TestSMSConfiguration;
@@ -24,14 +23,11 @@ public class SpringUnitTest {
 	private Texter mockTexter;
 
 	@Autowired
-	private QueueReceiver queueReceiver;
-
-	@Autowired
 	private QueueSender queueSender;
 
 	// Have our Strings outside our method so that they may be assigned from an anonymous inner-type.
-	String expectedMessage = "This message was passed as a parameter and sendText was successfully called once.";
-	String actualMessage = "";
+	private final String expectedMessage = "This message was passed as a parameter and sendText was successfully called once.";
+	private String actualMessage = "";
     
     @Test
     void rabbitMQCallsTexter() throws Exception {

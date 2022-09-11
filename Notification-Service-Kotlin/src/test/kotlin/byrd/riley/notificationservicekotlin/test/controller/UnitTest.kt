@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test
 
 class UnitTest {
 
-    val config: SMSConfigurable = TestSMSConfiguration()
-    val texter: Texter = TwilioTexter(config)
+    private val config: SMSConfigurable = TestSMSConfiguration()
+    private val texter: Texter = TwilioTexter(config)
 
     @Test
     fun passingSendText() {

@@ -11,8 +11,7 @@ class EmbeddedAMQPBroker: BeforeAllCallback, AfterAllCallback {
         const val BROKER_PORT = 5672
     }
 
-    val broker = SystemLauncher()
-
+    private val broker = SystemLauncher()
 
     override fun beforeAll(context: ExtensionContext?) {
         val attributes = mapOf<String, Any>(
